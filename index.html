@@ -3,38 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EngSmart 4.2 Pro - Cyberpunk Working Edition</title>
+    <title>EngSmart 4.2 Pro - Cyberpunk Final</title>
     <style>
         :root {
             --neon-primary: #00f3ff;
             --neon-secondary: #ff00ff;
             --bg-color: #0a0a12;
-            --card-base: rgba(16, 16, 28, 0.9);
         }
 
         body {
             background-color: var(--bg-color);
             color: #e0e0e0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
             background-image: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0a0a12 100%);
-            min-height: 100vh;
-        }
-
-        h1 {
-            color: var(--neon-primary);
-            text-shadow: 0 0 15px var(--neon-primary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
         }
 
         .main-container {
             width: 100%;
             max-width: 900px;
-            background: var(--card-base);
+            background: rgba(16, 16, 28, 0.9);
             padding: 25px;
             border-radius: 20px;
             border: 1px solid rgba(0, 243, 255, 0.3);
@@ -50,21 +41,13 @@
             padding: 15px;
             border-radius: 12px;
             margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .setting-item { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; }
-
+        .setting-item { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: var(--neon-primary); }
         input[type="color"] { border: none; width: 30px; height: 30px; cursor: pointer; background: none; }
 
-        .grid-inputs {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        label { display: block; margin-bottom: 5px; font-size: 0.75rem; color: #00f3ff; text-transform: uppercase; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 0.75rem; color: var(--neon-primary); text-transform: uppercase; }
 
         input[type="text"], textarea {
             width: 100%;
@@ -74,11 +57,12 @@
             border-radius: 8px;
             color: #fff;
             box-sizing: border-box;
-            font-family: monospace;
+            outline: none;
         }
 
-        .btn-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
 
+        .btn-group { display: flex; gap: 10px; margin-bottom: 20px; }
         .btn {
             flex: 1;
             padding: 15px;
@@ -90,30 +74,30 @@
             transition: 0.3s;
         }
 
-        .btn-main { background: #00f3ff; color: #000; box-shadow: 0 0 10px rgba(0, 243, 255, 0.5); }
-        .btn-secondary { background: transparent; border: 2px solid #ff00ff; color: #ff00ff; }
-        .btn-next { background: #ff00ff; color: #fff; width: 150px; align-self: flex-end; }
-
-        .btn:hover { transform: translateY(-2px); filter: brightness(1.2); }
+        .btn-main { background: var(--neon-primary); color: #000; box-shadow: 0 0 10px rgba(0, 243, 255, 0.5); }
+        .btn-secondary { background: transparent; border: 2px solid var(--neon-secondary); color: var(--neon-secondary); }
+        .btn-next { background: var(--neon-secondary); color: #fff; width: 150px; }
 
         .code-output {
             width: 100%;
-            height: 100px;
+            height: 80px;
             background: #000;
             color: #0f0;
             padding: 10px;
             border-radius: 8px;
             border: 1px solid #222;
+            font-family: monospace;
             font-size: 0.8rem;
-            margin-top: 10px;
+            resize: none;
         }
     </style>
 </head>
 <body>
 
-    <h1>EngSmart 4.2 Pro</h1>
+    <h1 style="color: var(--neon-primary); text-shadow: 0 0 10px var(--neon-primary);">EngSmart 4.2 Pro</h1>
 
     <div class="main-container">
+        
         <div class="settings-bar">
             <div class="setting-item">
                 <label>Рамка:</label>
@@ -129,33 +113,30 @@
             </div>
         </div>
 
-        <div style="margin-bottom: 15px;">
+        <div class="input-group">
+            <label>Ссылка на твой файл игры на GitHub:</label>
+            <input type="text" id="gameUrl" placeholder="https://твой-логин.github.io/название-проекта/" value="">
+            <small style="color: #666; font-size: 0.7rem;">(Сюда вставь адрес страницы, где лежит сама игра)</small>
+        </div>
+
+        <div class="input-group">
             <label>Глобальный фон (URL)</label>
             <input type="text" id="bgUrl" value="https://images.unsplash.com/photo-1518709268805-4e9042af9f23">
         </div>
 
         <div class="grid-inputs">
-            <div>
-                <label>English</label>
-                <textarea id="wordsEn" rows="5">Apple&#10;Dog</textarea>
-            </div>
-            <div>
-                <label>Russian</label>
-                <textarea id="wordsRu" rows="5">Яблоко&#10;Собака</textarea>
-            </div>
-            <div>
-                <label>Images</label>
-                <textarea id="imagesUrl" rows="5">https://.../apple.gif&#10;https://.../dog.png</textarea>
-            </div>
+            <div><label>English</label><textarea id="wordsEn" rows="4">Apple</textarea></div>
+            <div><label>Russian</label><textarea id="wordsRu" rows="4">Яблоко</textarea></div>
+            <div><label>Images</label><textarea id="imagesUrl" rows="4">https://...</textarea></div>
         </div>
 
         <div class="btn-group">
-            <button class="btn btn-main" onclick="generateCode()">🚀 Get iFrame Code</button>
-            <button class="btn btn-secondary" onclick="testGame()">👁️ Test Game</button>
+            <button class="btn btn-main" onclick="generate()">🚀 Get iFrame Code</button>
+            <button class="btn btn-secondary" onclick="preview()">👁️ Test Game</button>
         </div>
 
         <label>Genially Code:</label>
-        <textarea id="outputCode" class="code-output" readonly></textarea>
+        <textarea id="output" class="code-output" readonly></textarea>
 
         <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
             <button class="btn btn-next">Next ➔</button>
@@ -163,26 +144,30 @@
     </div>
 
     <script>
-        function generateCode() {
-            const bg = document.getElementById('bgUrl').value;
-            const bColor = document.getElementById('borderColor').value;
-            const cColor = document.getElementById('cardColor').value;
-            const isNeon = document.getElementById('neonEffect').checked;
+        function generate() {
+            const gameBase = document.getElementById('gameUrl').value || "УКАЖИТЕ_ССЫЛКУ_НА_GITHUB";
+            const bg = encodeURIComponent(document.getElementById('bgUrl').value);
+            const en = encodeURIComponent(document.getElementById('wordsEn').value.split('\n').join(','));
+            const ru = encodeURIComponent(document.getElementById('wordsRu').value.split('\n').join(','));
+            const img = encodeURIComponent(document.getElementById('imagesUrl').value.split('\n').join(','));
+            const border = document.getElementById('borderColor').value.replace('#','');
+            const card = document.getElementById('cardColor').value.replace('#','');
+            const neon = document.getElementById('neonEffect').checked;
+
+            const finalUrl = `${gameBase}?bg=${bg}&en=${en}&ru=${ru}&img=${img}&b=${border}&c=${card}&n=${neon}`;
+            const iframe = `<iframe src="${finalUrl}" width="800" height="600" style="border:3px solid #${border}; border-radius:15px; ${neon ? 'box-shadow: 0 0 15px #'+border : ''}" allowfullscreen></iframe>`;
             
-            // Логика сборки ссылки (пример)
-            const neonStyle = isNeon ? `box-shadow: 0 0 15px ${bColor};` : '';
-            const finalIframe = `<iframe src="https://example.com/game?bg=${encodeURIComponent(bg)}&border=${bColor.replace('#','')}&card=${cColor.replace('#','')}&neon=${isNeon}" width="800" height="600" style="border: 2px solid ${bColor}; ${neonStyle}"></iframe>`;
-            
-            document.getElementById('outputCode').value = finalIframe;
+            document.getElementById('output').value = iframe;
         }
 
-        function testGame() {
-            const code = document.getElementById('outputCode').value;
-            if(!code || code.includes('here')) {
-                alert("Сначала нажми 'Get iFrame Code'!");
+        function preview() {
+            const code = document.getElementById('output').value;
+            if (!code || code.includes('УКАЖИТЕ_ССЫЛКУ')) {
+                alert("Сначала введите ссылку на игру и нажмите 'Get iFrame Code'");
                 return;
             }
-            alert("Запуск превью... (В реальности здесь откроется окно с вашей игрой)");
+            const win = window.open("", "_blank");
+            win.document.write(`<body style="background:#000; display:flex; justify-content:center; align-items:center; height:100vh;">${code}</body>`);
         }
     </script>
 </body>
