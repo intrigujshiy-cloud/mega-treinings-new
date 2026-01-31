@@ -3,172 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EngSmart 4.2 Pro - Cyberpunk Final</title>
+    <title>EngSmart 4.0 Constructor - Cyberpunk Edition</title>
     <style>
         :root {
-            --neon-primary: #00f3ff;
-            --neon-secondary: #ff00ff;
-            --bg-color: #0a0a12;
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00ff;
+            --dark-bg: #0d0d15;
+            --card-bg: rgba(20, 20, 30, 0.9);
+            --user-border: #00f3ff; /* Переменная для пипетки */
+            --user-card: #161625;   /* Переменная для пипетки */
         }
 
         body {
-            background-color: var(--bg-color);
-            color: #e0e0e0;
-            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--dark-bg);
+            color: #fff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            background-image: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0a0a12 100%);
+            background-image: radial-gradient(circle at 50% 50%, #1b1b2f 0%, #0d0d15 100%);
+            min-height: 100vh;
         }
 
-        .main-container {
-            width: 100%;
-            max-width: 900px;
-            background: rgba(16, 16, 28, 0.9);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 243, 255, 0.3);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-        }
-
-        .settings-bar {
+        /* Новая панель настроек */
+        .cyber-settings {
             display: flex;
-            flex-wrap: wrap;
             gap: 20px;
             background: rgba(255, 255, 255, 0.05);
             padding: 15px;
-            border-radius: 12px;
+            border-radius: 10px;
             margin-bottom: 20px;
+            border: 1px solid var(--neon-blue);
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .setting-item { display: flex; align-items: center; gap: 8px; }
+        input[type="color"] { border: none; width: 25px; height: 25px; cursor: pointer; background: none; }
+
+        h1 {
+            color: var(--neon-blue);
+            text-shadow: 0 0 15px var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
         }
 
-        .setting-item { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: var(--neon-primary); }
-        input[type="color"] { border: none; width: 30px; height: 30px; cursor: pointer; background: none; }
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
 
-        .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-size: 0.75rem; color: var(--neon-primary); text-transform: uppercase; }
+        .input-group { margin-bottom: 20px; }
 
         input[type="text"], textarea {
             width: 100%;
             padding: 12px;
-            background: rgba(0, 0, 0, 0.5);
+            background: var(--user-card);
             border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            box-sizing: border-box;
+            border-radius: 5px;
+            color: #00f3ff;
             outline: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+            font-family: monospace;
         }
 
-        .grid-inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+        input:focus {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
 
-        .btn-group { display: flex; gap: 10px; margin-bottom: 20px; }
-        .btn {
-            flex: 1;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
             padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--user-border);
+        }
+
+        /* Классы кнопок как в оригинале */
+        .btn {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .btn-main { background: var(--neon-primary); color: #000; box-shadow: 0 0 10px rgba(0, 243, 255, 0.5); }
-        .btn-secondary { background: transparent; border: 2px solid var(--neon-secondary); color: var(--neon-secondary); }
-        .btn-next { background: var(--neon-secondary); color: #fff; width: 150px; }
+        .btn-generate {
+            background: linear-gradient(45deg, #00f3ff, #0077ff);
+            color: #000;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
 
-        .code-output {
+        .btn-preview {
+            background: transparent;
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+        }
+
+        .btn-next {
+            background: #ff00ff;
+            color: #fff;
+            box-shadow: 0 0 15px #ff00ff;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.2);
+        }
+
+        .preview-area {
             width: 100%;
-            height: 80px;
+            height: 100px;
             background: #000;
-            color: #0f0;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #222;
-            font-family: monospace;
-            font-size: 0.8rem;
-            resize: none;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: 1px dashed var(--neon-blue);
         }
+
+        .neon-glow { box-shadow: 0 0 15px var(--user-border) !important; }
     </style>
 </head>
 <body>
 
-    <h1 style="color: var(--neon-primary); text-shadow: 0 0 10px var(--neon-primary);">EngSmart 4.2 Pro</h1>
+    <h1>EngSmart 4.0 Constructor</h1>
 
-    <div class="main-container">
-        
-        <div class="settings-bar">
-            <div class="setting-item">
-                <label>Рамка:</label>
-                <input type="color" id="borderColor" value="#00f3ff">
-            </div>
-            <div class="setting-item">
-                <label>Карточка:</label>
-                <input type="color" id="cardColor" value="#10101c">
-            </div>
-            <div class="setting-item">
-                <input type="checkbox" id="neonEffect" checked>
-                <label for="neonEffect">Neon ON</label>
-            </div>
+    <div class="cyber-settings">
+        <div class="setting-item">
+            <label>Рамка:</label>
+            <input type="color" id="colorPickerBorder" value="#00f3ff" oninput="document.documentElement.style.setProperty('--user-border', this.value)">
         </div>
-
-        <div class="input-group">
-            <label>Ссылка на твой файл игры на GitHub:</label>
-            <input type="text" id="gameUrl" placeholder="https://твой-логин.github.io/название-проекта/" value="">
-            <small style="color: #666; font-size: 0.7rem;">(Сюда вставь адрес страницы, где лежит сама игра)</small>
+        <div class="setting-item">
+            <label>Карточка:</label>
+            <input type="color" id="colorPickerCard" value="#161625" oninput="document.documentElement.style.setProperty('--user-card', this.value)">
         </div>
-
-        <div class="input-group">
-            <label>Глобальный фон (URL)</label>
-            <input type="text" id="bgUrl" value="https://images.unsplash.com/photo-1518709268805-4e9042af9f23">
-        </div>
-
-        <div class="grid-inputs">
-            <div><label>English</label><textarea id="wordsEn" rows="4">Apple</textarea></div>
-            <div><label>Russian</label><textarea id="wordsRu" rows="4">Яблоко</textarea></div>
-            <div><label>Images</label><textarea id="imagesUrl" rows="4">https://...</textarea></div>
-        </div>
-
-        <div class="btn-group">
-            <button class="btn btn-main" onclick="generate()">🚀 Get iFrame Code</button>
-            <button class="btn btn-secondary" onclick="preview()">👁️ Test Game</button>
-        </div>
-
-        <label>Genially Code:</label>
-        <textarea id="output" class="code-output" readonly></textarea>
-
-        <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
-            <button class="btn btn-next">Next ➔</button>
+        <div class="setting-item">
+            <input type="checkbox" id="neonToggle" onclick="document.querySelector('.container').classList.toggle('neon-glow')">
+            <label for="neonToggle">Неон</label>
         </div>
     </div>
 
-    <script>
-        function generate() {
-            const gameBase = document.getElementById('gameUrl').value || "УКАЖИТЕ_ССЫЛКУ_НА_GITHUB";
-            const bg = encodeURIComponent(document.getElementById('bgUrl').value);
-            const en = encodeURIComponent(document.getElementById('wordsEn').value.split('\n').join(','));
-            const ru = encodeURIComponent(document.getElementById('wordsRu').value.split('\n').join(','));
-            const img = encodeURIComponent(document.getElementById('imagesUrl').value.split('\n').join(','));
-            const border = document.getElementById('borderColor').value.replace('#','');
-            const card = document.getElementById('cardColor').value.replace('#','');
-            const neon = document.getElementById('neonEffect').checked;
+    <div class="container">
+        <div class="input-group">
+            <input type="text" placeholder="https://images.unsplash.com/photo-example...">
+        </div>
 
-            const finalUrl = `${gameBase}?bg=${bg}&en=${en}&ru=${ru}&img=${img}&b=${border}&c=${card}&n=${neon}`;
-            const iframe = `<iframe src="${finalUrl}" width="800" height="600" style="border:3px solid #${border}; border-radius:15px; ${neon ? 'box-shadow: 0 0 15px #'+border : ''}" allowfullscreen></iframe>`;
-            
-            document.getElementById('output').value = iframe;
-        }
+        <div class="grid">
+            <div class="card">
+                <label>Apple</label>
+                <textarea rows="3"></textarea>
+            </div>
+            <div class="card">
+                <label>Яблоко</label>
+                <textarea rows="3"></textarea>
+            </div>
+            <div class="card">
+                <label>Image URLs...</label>
+                <textarea rows="3"></textarea>
+            </div>
+        </div>
 
-        function preview() {
-            const code = document.getElementById('output').value;
-            if (!code || code.includes('УКАЖИТЕ_ССЫЛКУ')) {
-                alert("Сначала введите ссылку на игру и нажмите 'Get iFrame Code'");
-                return;
-            }
-            const win = window.open("", "_blank");
-            win.document.write(`<body style="background:#000; display:flex; justify-content:center; align-items:center; height:100vh;">${code}</body>`);
-        }
-    </script>
+        <button class="btn btn-generate">
+            1. GENERATE IFRAME 📝
+        </button>
+
+        <div class="preview-area"></div>
+
+        <button class="btn btn-preview">
+            2. PREVIEW HERE 👁️
+        </button>
+
+        <button class="btn btn-next">
+            Next ➔
+        </button>
+    </div>
+
 </body>
 </html>
